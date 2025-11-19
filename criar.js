@@ -1,17 +1,17 @@
-function criarAnimal() {
-    const especie = document.getElementById("especie").value;
-    const local_resgate = document.getElementById("local_resgate").value;
-    const estado_saude = document.getElementById("estado_saude").value;
-    const data_resgate = document.getElementById("data_resgate").value;
+function criarMidia() {
+    const titulo = document.getElementById("especie").value;
+    const genero = document.getElementById("local_resgate").value;
+    const classificacao = document.getElementById("estado_saude").value;
+    const data_lancamento = document.getElementById("data_resgate").value;
 
     const dados = {
-        especie,
-        local_resgate,
-        estado_saude,
-        data_resgate
+        titulo,
+        genero,
+        classificacao,
+        data_lancamento
     };
 
-    fetch("http://localhost:3000/animaisResgatados", {
+    fetch("http://localhost:3000/midias", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(dados)

@@ -1,4 +1,3 @@
-
 const express = require('express');
 const cors = require('cors');
 const acessaBancoNoServidor = require('./acessaBancoNoServidor');
@@ -9,72 +8,73 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('.'));
 
-
-app.post('/animaisResgatados', (req, res) => {
-    const { especie, local_resgate, estado_saude, data_resgate } = req.body;
+// Cadastrar uma nova mídia
+app.post('/midias', (req, res) => {
+    const { titulo, genero, classificacao, data_lancamento } = req.body;
 
     const sql = `
-        INSERT INTO animaisResgatados 
-        (especie, local_resgate, estado_saude, data_resgate)
+        INSERT INTO midias 
+        (titulo, genero, classificacao, data_lancamento)
         VALUES (?, ?, ?, ?)
     `;
 
-    acessaBancoNoServidor.query(sql, [especie, local_resgate, estado_saude, data_resgate], (err, results) => {
+    acessaBancoNoServidor.query(sql, [titulo, genero, classificacao, data_lancamento], (err, results) => {
         if (err) {
-            console.error("Erro ao cadastrar animal:", err);
-            return res.status(500).json({ error: "Erro ao cadastrar animal." });
+            console.error("Erro ao cadastrar mídia:", err);
+            return res.status(500).json({ error: "Erro ao cadastrar mídia." });
         }
-        res.json({ message: "Animal resgatado cadastrado com sucesso!" });
+        res.json({ message: "Mídia cadastrada com sucesso!" });
     });
 });
 
-app.get('/animaisResgatados', (req, res) => {
-    const sql = 'SELECT * FROM animaisResgatados';
+// Listar todas as mídias
+app.get('/midias', (req, res) => {
+    const sql = 'SELECT * FROM midias';
 
     acessaBancoNoServidor.query(sql, (err, results) => {
         if (err) {
-            console.error("Erro ao buscar animais:", err);
-            return res.status(500).json({ error: "Erro ao buscar animais." });
+            console.error("Erro ao buscar mídias:", err);
+            return res.status(500).json({ error: "Erro ao buscar mídias." });
         }
         res.json(results);
     });
 });
 
-
-app.put('/animaisResgatados/:id', (req, res) => {
+// Atualizar uma mídia existente
+app.put('/midias/:id', (req, res) => {
     const { id } = req.params;
-    const { especie, local_resgate, estado_saude, data_resgate } = req.body;
+    const { titulo, genero, classificacao, data_lancamento } = req.body;
 
     const sql = `
-        UPDATE animaisResgatados
-        SET especie=?, local_resgate=?, estado_saude=?, data_resgate=?
+        UPDATE midias
+        SET titulo=?, genero=?, classificacao=?, data_lancamento=?
         WHERE ID=?
     `;
 
-    acessaBancoNoServidor.query(sql, [especie, local_resgate, estado_saude, data_resgate, id], (err, results) => {
+    acessaBancoNoServidor.query(sql, [titulo, genero, classificacao, data_lancamento, id], (err, results) => {
         if (err) {
-            console.error("Erro ao atualizar animal:", err);
-            return res.status(500).json({ error: "Erro ao atualizar animal." });
+            console.error("Erro ao atualizar mídia:", err);
+            return res.status(500).json({ error: "Erro ao atualizar mídia." });
         }
-        res.json({ message: "Animal atualizado com sucesso!" });
+        res.json({ message: "Mídia atualizada com sucesso!" });
     });
 });
 
-   
-app.delete('/animaisResgatados/:id', (req, res) => {
+// Deletar uma mídia
+app.delete('/midias/:id', (req, res) => {
     const { id } = req.params;
 
-    const sql = 'DELETE FROM animaisResgatados WHERE ID=?';
+    const sql = 'DELETE FROM midias WHERE ID=?';
 
     acessaBancoNoServidor.query(sql, [id], (err, results) => {
         if (err) {
-            console.error("Erro ao deletar animal:", err);
-            return res.status(500).json({ error: "Erro ao deletar animal." });
+            console.error("Erro ao deletar mídia:", err);
+            return res.status(500).json({ error: "Erro ao deletar mídia." });
         }
-        res.json({ message: "Animal deletado com sucesso!" });
+        res.json({ message: "Mídia deletada com sucesso!" });
     });
 });
 
 app.listen(3000, () => {
-    console.log('Servidor da ONG Ambiental rodando em http://localhost:3000');
+    console.log('Servidor de Filmes e Séries rodando em http://localhost:3000');
 });

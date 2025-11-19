@@ -1,23 +1,23 @@
-function buscarAnimais() {
-    fetch("http://localhost:3000/animaisResgatados")
+function buscarMidias() {
+    fetch("http://localhost:3000/midias")
         .then(res => res.json())
-        .then(animais => {
+        .then(midias => {
             const tabela = document.getElementById("tabelaAnimais");
             tabela.innerHTML = "";
 
-            animais.forEach(animal => {
+            midias.forEach(midia => {
                 tabela.innerHTML += `
                     <tr>
-                        <td>${animal.ID}</td>
-                        <td>${animal.especie}</td>
-                        <td>${animal.local_resgate}</td>
-                        <td>${animal.estado_saude}</td>
-                        <td>${animal.data_resgate}</td>
+                        <td>${midia.ID}</td>
+                        <td>${midia.titulo}</td>
+                        <td>${midia.genero}</td>
+                        <td>${midia.classificacao}</td>
+                        <td>${midia.data_lancamento}</td>
                     </tr>
                 `;
             });
         })
-        .catch(() => alert("Erro ao buscar animais."));
+        .catch(() => alert("Erro ao buscar mídias."));
 }
 
-buscarAnimais();
+buscarMidias();

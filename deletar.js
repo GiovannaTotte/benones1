@@ -1,7 +1,7 @@
-function deletarAnimal() {
+function deletar() {
     const id = document.getElementById("id").value;
 
-    fetch(`http://localhost:3000/midias/${id}`, {
+    fetch(`http://localhost:3000/midia/${id}`, {
         method: "DELETE"
     })
     .then(res => res.json())

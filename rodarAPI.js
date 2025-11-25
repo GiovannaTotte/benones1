@@ -9,16 +9,16 @@ app.use(express.json());
 app.use(express.static('.'));
 
 // Cadastrar uma nova mídia
-app.post('/midias', (req, res) => {
-    const { titulo, genero, classificacao, data_lancamento } = req.body;
+app.post('/midia', (req, res) => {
+    const { titulo, genero, classificacao, lancamento } = req.body;
 
     const sql = `
-        INSERT INTO midias 
-        (titulo, genero, classificacao, data_lancamento)
+        INSERT INTO midia 
+        (titulo, genero, classificacao, lancamento)
         VALUES (?, ?, ?, ?)
     `;
 
-    acessaBancoNoServidor.query(sql, [titulo, genero, classificacao, data_lancamento], (err, results) => {
+    acessaBancoNoServidor.query(sql, [titulo, genero, classificacao, lancamento], (err, results) => {
         if (err) {
             console.error("Erro ao cadastrar mídia:", err);
             return res.status(500).json({ error: "Erro ao cadastrar mídia." });
@@ -28,8 +28,8 @@ app.post('/midias', (req, res) => {
 });
 
 // Listar todas as mídias
-app.get('/midias', (req, res) => {
-    const sql = 'SELECT * FROM midias';
+app.get('/midia', (req, res) => {
+    const sql = 'SELECT * FROM midia';
 
     acessaBancoNoServidor.query(sql, (err, results) => {
         if (err) {
@@ -41,17 +41,17 @@ app.get('/midias', (req, res) => {
 });
 
 // Atualizar uma mídia existente
-app.put('/midias/:id', (req, res) => {
+app.put('/midia/:id', (req, res) => {
     const { id } = req.params;
-    const { titulo, genero, classificacao, data_lancamento } = req.body;
+    const { titulo, genero, classificacao, lancamento } = req.body;
 
     const sql = `
-        UPDATE midias
-        SET titulo=?, genero=?, classificacao=?, data_lancamento=?
+        UPDATE midia
+        SET titulo=?, genero=?, classificacao=?, lancamento=?
         WHERE ID=?
     `;
 
-    acessaBancoNoServidor.query(sql, [titulo, genero, classificacao, data_lancamento, id], (err, results) => {
+    acessaBancoNoServidor.query(sql, [titulo, genero, classificacao, lancamento, id], (err, results) => {
         if (err) {
             console.error("Erro ao atualizar mídia:", err);
             return res.status(500).json({ error: "Erro ao atualizar mídia." });
@@ -61,10 +61,10 @@ app.put('/midias/:id', (req, res) => {
 });
 
 // Deletar uma mídia
-app.delete('/midias/:id', (req, res) => {
+app.delete('/midia/:id', (req, res) => {
     const { id } = req.params;
 
-    const sql = 'DELETE FROM midias WHERE ID=?';
+    const sql = 'DELETE FROM midia WHERE ID=?';
 
     acessaBancoNoServidor.query(sql, [id], (err, results) => {
         if (err) {

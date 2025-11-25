@@ -6,7 +6,7 @@ const acessaBancoNoServidor = mysql.createConnection({
     port: 3306,
     user: 'alunos',
     password: 'senhaAlunos',
-    database: 'api_crud' // confirme que o nome do seu banco é esse
+    database: 'api_crud' 
 });
 
 // Testar conexão

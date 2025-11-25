@@ -1,18 +1,18 @@
-function buscarMidias() {
-    fetch("http://localhost:3000/midias")
+function buscar() {
+    fetch("http://localhost:3000/midia")
         .then(res => res.json())
-        .then(midias => {
-            const tabela = document.getElementById("tabelaAnimais");
+        .then(midia => {
+            const tabela = document.getElementById("midia");
             tabela.innerHTML = "";
 
-            midias.forEach(midia => {
+            midia.forEach(midia => {
                 tabela.innerHTML += `
                     <tr>
-                        <td>${midia.ID}</td>
+                        <td>${midia.id}</td>
                         <td>${midia.titulo}</td>
                         <td>${midia.genero}</td>
                         <td>${midia.classificacao}</td>
-                        <td>${midia.data_lancamento}</td>
+                        <td>${midia.lancamento}</td>
                     </tr>
                 `;
             });
@@ -20,4 +20,4 @@ function buscarMidias() {
         .catch(() => alert("Erro ao buscar mídias."));
 }
 
-buscarMidias();
+buscar();

@@ -1,17 +1,17 @@
-function criarMidia() {
-    const titulo = document.getElementById("especie").value;
-    const genero = document.getElementById("local_resgate").value;
-    const classificacao = document.getElementById("estado_saude").value;
-    const data_lancamento = document.getElementById("data_resgate").value;
+function criar() {
+    const titulo = document.getElementById("titulo").value;
+    const genero = document.getElementById("genero").value;
+    const classificacao = document.getElementById("classificacao").value;
+    const lancamento = document.getElementById("lancamento").value;
 
     const dados = {
         titulo,
         genero,
         classificacao,
-        data_lancamento
+        lancamento
     };
 
-    fetch("http://localhost:3000/midias", {
+    fetch("http://localhost:3000/midia", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(dados)
